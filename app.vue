@@ -1,10 +1,42 @@
-<script setup>
+<script setup lang="ts">
+//use typeScript to define the types of our variables
 //utilise reactive in order to have a state of object
-const options = reactive({
-  // our state
-  gender: "Girl",
-  popularity: "Unique",
-  length: "Long",
+
+enum Gender {
+  //here we will define all of the different options that we have for a particular gender option
+  GIRL = "Girl",
+  BOY = "Boy",
+  UNISEX = "Unisex",
+}
+enum Popularity {
+  //here we will define all of the different options that we have for a particular gender option
+  TRENDY = "Trendy",
+  UNIQUE = "Unique",
+}
+enum Length {
+  //here we will define all of the different options that we have for a particular gender option
+  LONG = "Long",
+  ALL = "All",
+  SHORT = "Short",
+}
+
+interface OptionsState {
+  // we're going to define the type of each key value pair
+  gender: Gender;
+  popularity: Popularity;
+  length: Length;
+}
+const obj: OptionsState = {
+  gender: Gender.GIRL,
+  length: Length.ALL,
+  popularity: Popularity.UNIQUE,
+};
+
+const options = reactive<OptionsState>({
+  //our state
+  gender: Gender.GIRL,
+  length: Length.ALL,
+  popularity: Popularity.UNIQUE,
 });
 </script>
 <template>
@@ -17,19 +49,19 @@ const options = reactive({
         <div class="option-buttons">
           <button
             class="option option-left"
-            :class="options.gender === 'Boy' && 'option-active'"
+            :class="options.gender === Gender.BOY && 'option-active'"
           >
             Boy
           </button>
           <button
             class="option"
-            :class="options.gender === 'Unisex' && 'option-active'"
+            :class="options.gender === Gender.UNISEX && 'option-active'"
           >
             Unisex
           </button>
           <button
             class="option option-right"
-            :class="options.gender === 'Girl' && 'option-active'"
+            :class="options.gender === Gender.GIRL && 'option-active'"
           >
             Girl
           </button>
@@ -40,13 +72,13 @@ const options = reactive({
         <div class="option-buttons">
           <button
             class="option option-left"
-            :class="options.popularity === 'Trendy' && 'option-active'"
+            :class="options.popularity === Popularity.TRENDY && 'option-active'"
           >
             Trendy
           </button>
           <button
             class="option option-right"
-            :class="options.popularity === 'Unique' && 'option-active'"
+            :class="options.popularity === Popularity.UNIQUE && 'option-active'"
           >
             Unique
           </button>
@@ -57,19 +89,19 @@ const options = reactive({
         <div class="option-buttons">
           <button
             class="option option-left"
-            :class="options.length === 'Long' && 'option-active'"
+            :class="options.length === Length.LONG && 'option-active'"
           >
             Long
           </button>
           <button
             class="option"
-            :class="options.length === 'All' && 'option-active'"
+            :class="options.length === Length.ALL && 'option-active'"
           >
             All
           </button>
           <button
             class="option option-right"
-            :class="options.length === 'Short' && 'option-active'"
+            :class="options.length === Length.SHORT && 'option-active'"
           >
             Short
           </button>
